@@ -14,6 +14,7 @@ namespace IdentityModel.AspNetCore.AccessTokenManagement
         /// <param name="clientName"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
+        /// why clientName not in the ClientAccessTokenParameters?
         Task<ClientCredentialsTokenRequest> GetClientCredentialsRequestAsync(string clientName, ClientAccessTokenParameters parameters);
 
         /// <summary>

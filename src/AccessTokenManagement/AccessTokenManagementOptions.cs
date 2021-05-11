@@ -64,6 +64,7 @@ namespace IdentityModel.AspNetCore.AccessTokenManagement
             /// <summary>
             /// Used to prefix the cache key
             /// </summary>
+            /// why an option?
             public string CacheKeyPrefix { get; set; } = "IdentityModel.AspNetCore.AccessTokenManagement:";
 
             /// <summary>

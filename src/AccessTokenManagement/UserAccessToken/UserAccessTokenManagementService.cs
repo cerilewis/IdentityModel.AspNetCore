@@ -15,6 +15,7 @@ namespace IdentityModel.AspNetCore.AccessTokenManagement
     /// </summary>
     public class UserAccessAccessTokenManagementService : IUserAccessTokenManagementService
     {
+        // this will be shared across concurrent unit tests
         private static readonly ConcurrentDictionary<string, Lazy<Task<string>>> UserRefreshDictionary = new();
         
         private readonly IUserAccessTokenStore _userAccessTokenStore;
@@ -63,6 +64,8 @@ namespace IdentityModel.AspNetCore.AccessTokenManagement
 
             if (userToken == null)
             {
+                // add?
+                // "... for user {user}", userName
                 _logger.LogDebug("No token data found in user token store.");
                 return null;
             }
@@ -107,6 +110,7 @@ namespace IdentityModel.AspNetCore.AccessTokenManagement
                 }
             }
 
+            // maybe userToken.AccessToken is null, but refresh values are wrong/bad?
             return userToken.AccessToken;
         }
 

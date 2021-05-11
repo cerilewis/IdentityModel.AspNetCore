@@ -55,6 +55,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
             
             services.TryAddTransient<IClientAccessTokenManagementService, ClientAccessTokenManagementService>();
+            // should this be in AddClientAccessTokenClient? or even why in DI?
             services.TryAddTransient<ClientAccessTokenHandler>();
             services.TryAddTransient<IClientAccessTokenCache, ClientAccessTokenCache>();
             
@@ -84,6 +85,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddAuthentication();
             
             services.TryAddTransient<IUserAccessTokenManagementService, UserAccessAccessTokenManagementService>();
+            // should this be in AddUserAccessTokenClient? or even why in DI?
             services.TryAddTransient<UserAccessTokenHandler>();
             services.TryAddTransient<IUserAccessTokenStore, AuthenticationSessionUserAccessTokenStore>();
 

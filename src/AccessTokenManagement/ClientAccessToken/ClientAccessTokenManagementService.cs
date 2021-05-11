@@ -14,6 +14,7 @@ namespace IdentityModel.AspNetCore.AccessTokenManagement
     /// </summary>
     public class ClientAccessTokenManagementService : IClientAccessTokenManagementService
     {
+        // this will be shared across concurrent unit tests
         private static readonly ConcurrentDictionary<string, Lazy<Task<string>>> ClientTokenRequestDictionary = new();
 
         private readonly ITokenEndpointService _tokenEndpointService;

@@ -39,30 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
             
             return new TokenManagementBuilder(services);
         }
-
-        /// <summary>
-        /// Adds the token management services to DI
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configureAction"></param>
-        /// <returns></returns>
-        public static TokenManagementBuilder AddBlazorAccessTokenManagement(this IServiceCollection services,
-            Action<AccessTokenManagementOptions> configureAction = null)
-        {
-            CheckConfigMarker(services);
-            
-            var options = new AccessTokenManagementOptions();
-            configureAction?.Invoke(options);
-            
-            services.AddSingleton(options.Client);
-            services.AddSingleton(options.User);
-
-            services.AddUserAccessTokenManagementInternal();
-            services.AddClientAccessTokenManagementInternal();
-            
-            return new TokenManagementBuilder(services);
-        }
-
+        
         private static void CheckConfigMarker(IServiceCollection services)
         {
             var marker = services.FirstOrDefault(s => s.ServiceType == typeof(ConfigMarker));
@@ -75,7 +52,6 @@ namespace Microsoft.Extensions.DependencyInjection
             throw new InvalidOperationException(
                 "Call 'AddAccessTokenManagement' to add support for both client and user access tokens. Or call 'AddUserAccessTokenManagement' or 'AddClientAccessTokenManagement' respectively. You cannot mix them. Nor can you call them multiple times.");
         }
-
         
         /// <summary>
         /// Adds the services required for client access token management
@@ -84,26 +60,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configureAction"></param>
         /// <returns></returns>
         public static TokenManagementBuilder AddClientAccessTokenManagement(this IServiceCollection services,
-            Action<ClientAccessTokenManagementOptions> configureAction = null)
-        {
-            CheckConfigMarker(services);
-            
-            var clientOptions = new ClientAccessTokenManagementOptions();
-            configureAction?.Invoke(clientOptions);
-            
-            services.AddSingleton(clientOptions);
-            services.AddSingleton(new UserAccessTokenManagementOptions());
-
-            return services.AddClientAccessTokenManagementInternal();
-        }
-        
-        /// <summary>
-        /// Adds the services required for client access token management
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configureAction"></param>
-        /// <returns></returns>
-        public static TokenManagementBuilder AddBlazorClientAccessTokenManagement(this IServiceCollection services,
             Action<ClientAccessTokenManagementOptions> configureAction = null)
         {
             CheckConfigMarker(services);

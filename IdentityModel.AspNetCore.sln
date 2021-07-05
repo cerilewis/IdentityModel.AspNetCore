@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web5", "samples\Web5\Web5.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMultiResource", "samples\WebMultiResource\WebMultiResource.csproj", "{A91C34AD-34D7-44C9-B643-1257F2162969}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor5", "F:\Source\External\IdentityModel.AspNetCore\samples\Blazor5\Blazor5.csproj", "{F9CC3788-6AF6-48B5-8A64-590EF98301D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,18 @@ Global
 		{A91C34AD-34D7-44C9-B643-1257F2162969}.Release|x64.Build.0 = Release|Any CPU
 		{A91C34AD-34D7-44C9-B643-1257F2162969}.Release|x86.ActiveCfg = Release|Any CPU
 		{A91C34AD-34D7-44C9-B643-1257F2162969}.Release|x86.Build.0 = Release|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Debug|x64.Build.0 = Debug|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Debug|x86.Build.0 = Debug|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Release|x64.Build.0 = Release|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Release|x86.ActiveCfg = Release|Any CPU
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +143,7 @@ Global
 		{2F0D8378-1ADA-4F0B-B8E6-7E1D97F1CBCC} = {B8F1A24B-007A-4735-B33E-9528662EDCAD}
 		{0F751A6E-EFB1-483E-BDF5-008644C07C07} = {B8F1A24B-007A-4735-B33E-9528662EDCAD}
 		{A91C34AD-34D7-44C9-B643-1257F2162969} = {B8F1A24B-007A-4735-B33E-9528662EDCAD}
+		{F9CC3788-6AF6-48B5-8A64-590EF98301D9} = {B8F1A24B-007A-4735-B33E-9528662EDCAD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A4E29A0-CAE8-45E9-817B-AF126F85EE15}

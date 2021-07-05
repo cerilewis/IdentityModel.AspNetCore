@@ -94,7 +94,7 @@ namespace Blazor5
                 }));
             
             // registers HTTP client that uses the managed user access token
-            services.AddBlazorUserAccessTokenHttpClient("user_client", configureClient: client =>
+            services.AddHttpClient("user_client", configureClient: client =>
             {
                 client.BaseAddress = new Uri("https://demo.duendesoftware.com/api/");
             });

@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\IdentityModel.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\IdentityModel.AspNetCore\IdentityModel.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\IdentityModel.Blazor\IdentityModel.Blazor.csproj" />
   </ItemGroup>
 
 </Project>

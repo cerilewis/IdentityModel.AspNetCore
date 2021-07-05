@@ -39,6 +39,28 @@ namespace Microsoft.Extensions.DependencyInjection
             
             return new TokenManagementBuilder(services);
         }
+        /// <summary>
+        /// Adds the token management services to DI
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configureAction"></param>
+        /// <returns></returns>
+        public static TokenManagementBuilder AddBlazorAccessTokenManagement(this IServiceCollection services,
+            Action<AccessTokenManagementOptions> configureAction = null)
+        {
+            CheckConfigMarker(services);
+            
+            var options = new AccessTokenManagementOptions();
+            configureAction?.Invoke(options);
+            
+            services.AddSingleton(options.Client);
+            services.AddSingleton(options.User);
+
+            services.AddBlazorUserAccessTokenManagementInternal();
+            services.AddClientAccessTokenManagementInternal();
+            
+            return new TokenManagementBuilder(services);
+        }
         
         private static void CheckConfigMarker(IServiceCollection services)
         {
@@ -123,6 +145,22 @@ namespace Microsoft.Extensions.DependencyInjection
             
             return new TokenManagementBuilder(services);
         }
+        
+        
+        private static TokenManagementBuilder AddBlazorUserAccessTokenManagementInternal(this IServiceCollection services)
+        {
+            // necessary ASP.NET plumbing
+            services.AddAuthentication();
+            
+            services.AddSharedServices();
+            
+            services.TryAddScoped<IUserAccessTokenManagementService, UserAccessAccessTokenManagementService>();
+            services.TryAddScoped<IUserAccessTokenStore, ScopedUserTokenStore>();
+            services.TryAddScoped<IUserAccessTokenRequestSynchronization, AccessTokenRequestSynchronization>();
+            
+            return new TokenManagementBuilder(services);
+        }
+        
 
         private static void AddSharedServices(this IServiceCollection services)
         {
@@ -153,6 +191,29 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return services.AddHttpClient(name)
                 .AddUserAccessTokenHandler(parameters);
+        }
+        
+        /// <summary>
+        /// Adds a named HTTP client for the factory that automatically sends the current user access token
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="name">The name of the client.</param>
+        /// <param name="parameters"></param>
+        /// <param name="configureClient">Additional configuration.</param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddBlazorUserAccessTokenHttpClient(this IServiceCollection services, 
+            string name,
+            UserAccessTokenParameters parameters = null, 
+            Action<HttpClient> configureClient = null)
+        {
+            if (configureClient != null)
+            {
+                return services.AddHttpClient(name, configureClient)
+                    .AddBlazorUserAccessTokenHandler(parameters);
+            }
+
+            return services.AddHttpClient(name)
+                .AddBlazorUserAccessTokenHandler(parameters);
         }
 
         /// <summary>
@@ -209,6 +270,26 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 return new UserAccessTokenHandler(contextAccessor, parameters);
             });
+        }
+
+        /// <summary>
+        /// Adds the user access token handler to an HttpClient
+        /// </summary>
+        /// <param name="httpClientBuilder"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddBlazorUserAccessTokenHandler(this IHttpClientBuilder httpClientBuilder,
+            UserAccessTokenParameters parameters = null)
+        {
+            return httpClientBuilder;
+            // return httpClientBuilder.AddHttpMessageHandler(provider =>
+            // {
+            //     var contextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+            //     var userAccessTokenManagementService = contextAccessor.HttpContext.RequestServices.GetRequiredService<IUserAccessTokenManagementService>();
+            //     //var userAccessTokenManagementService = provider.GetRequiredService<IUserAccessTokenManagementService>();
+            //
+            //     return new BlazorUserAccessTokenHandler(userAccessTokenManagementService, parameters);
+            // });
         }
     }
 }

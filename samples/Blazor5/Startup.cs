@@ -79,7 +79,7 @@ namespace Blazor5
             services.AddSingleton<WeatherForecastService>();
 
             // adds user and client access token management
-            services.AddAccessTokenManagement(options =>
+            services.AddBlazorAccessTokenManagement(options =>
                 {
                     // client config is inferred from OpenID Connect settings
                     // if you want to specify scopes explicitly, do it here, otherwise the scope parameter will not be sent
@@ -94,7 +94,7 @@ namespace Blazor5
                 }));
             
             // registers HTTP client that uses the managed user access token
-            services.AddUserAccessTokenHttpClient("user_client", configureClient: client =>
+            services.AddBlazorUserAccessTokenHttpClient("user_client", configureClient: client =>
             {
                 client.BaseAddress = new Uri("https://demo.duendesoftware.com/api/");
             });

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\IdentityModel.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\IdentityModel.AspNetCore\IdentityModel.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

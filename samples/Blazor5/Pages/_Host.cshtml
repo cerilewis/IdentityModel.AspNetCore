@@ -1,8 +1,22 @@
 ﻿@page "/"
+@using IdentityModel.Blazor
 @namespace Blazor5.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
+}
+
+@{
+//    var initialAuthenticationState = await this.HttpContext.GetInitialAuthenticationState();
+    // if (this.HttpContext.User?.Identity?.IsAuthenticated ?? false)
+    // {
+    //     var accessToken = await HttpContext.GetTokenAsync("access_token");
+    //     var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+    //     var expiresAtToken = await HttpContext.GetTokenAsync("expires_at");
+    //     var expiresAt = DateTimeOffset.TryParse(expiresAtToken, out var time) ? time : DateTimeOffset.MinValue;
+    //
+    //     await UserAccessTokenStore.StoreTokenAsync(this.HttpContext.User, accessToken, expiresAt, refreshToken);
+    // }
 }
 
 <!DOCTYPE html>
@@ -15,7 +29,7 @@
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
-<component type="typeof(App)" render-mode="ServerPrerendered"/>
+<component type="typeof(App)" param-InitialAuthenticationState="@(await HttpContext.GetInitialAuthenticationState())"  render-mode="ServerPrerendered"/>
 
 <div id="blazor-error-ui">
     <environment include="Staging,Production">

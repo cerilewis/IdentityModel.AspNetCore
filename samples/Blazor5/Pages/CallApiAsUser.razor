@@ -3,6 +3,10 @@
 
 @using Newtonsoft.Json.Linq
 @using Microsoft.Extensions.Logging
+@using IdentityModel.AspNetCore.AccessTokenManagement
+@using IdentityModel.Client
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <ApiResponse Response="@Content" />
 
@@ -13,6 +17,9 @@
     
     [Inject]
     public ILogger<CallApiAsUser> Logger { get; set; }
+    
+    [CascadingParameter]
+    public IUserAccessTokenManagementService UserAccessTokenManagementService { get; set; }
 
     private string Content { get; set; }
     
@@ -20,10 +27,19 @@
     {
         try
         {
-            var client = HttpClientFactory.CreateClient("user_client");
-            var response = await client.GetStringAsync("test");
+            var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            if (state.User.Identity?.IsAuthenticated ?? false)
+            {
+                var accessToken = await UserAccessTokenManagementService.GetUserAccessTokenAsync(state.User);
+
+                var client = HttpClientFactory.CreateClient("user_client");
+                client.SetBearerToken(accessToken);
             
-            Content = JArray.Parse(response).ToString();;
+                var response = await client.GetStringAsync("test");
+            
+                Content = JArray.Parse(response).ToString();                
+            }
         }
         catch (Exception e)
         {

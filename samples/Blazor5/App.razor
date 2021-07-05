@@ -1,6 +1,9 @@
-﻿@inject NavigationManager UriHelper
+﻿@using IdentityModel.Blazor
+@using Microsoft.Extensions.Logging
+@inject NavigationManager UriHelper
 
 <CascadingAuthenticationState>
+    <CascadingTokenIdentity InitialAuthenticationState="@InitialAuthenticationState">
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
@@ -21,4 +24,21 @@
             </LayoutView>
         </NotFound>
     </Router>
-</CascadingAuthenticationState>
+    </CascadingTokenIdentity>
+</CascadingAuthenticationState>        
+
+
+@code
+{
+    [Parameter]
+    public InitialAuthenticationState InitialAuthenticationState { get; set; }
+    
+    [Inject]
+    public ILogger<App> Logger { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation("Access token from initial state: {AccessToken}", this.InitialAuthenticationState?.AccessToken);
+        base.OnInitialized();
+    }
+}

@@ -4,7 +4,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcCode</a>
+            <NavLink class="navbar-brand" href="/">Blazor Code</NavLink>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,24 +12,24 @@
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <NavLink class="nav-link text-dark" href="/" Match="NavLinkMatch.All">Home</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Secure">Secure</a>
+                        <NavLink class="nav-link text-dark" href="/Secure">Secure</NavLink>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CallApiAsClient">Call API (as Client)</a>
+                        <NavLink class="nav-link text-dark" href="/CallApiAsClient">Call API (as Client)</NavLink>
                     </li>
 
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CallApiAsUser">Call API (as User)</a>
+                            <NavLink class="nav-link text-dark" href="/CallApiAsUser">Call API (as User)</NavLink>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                            <NavLink class="nav-link text-dark" href="Logout">Logout</NavLink>
                         </li>
                     }
 

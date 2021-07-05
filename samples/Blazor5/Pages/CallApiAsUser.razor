@@ -1,0 +1,36 @@
+@page "/CallApiAsUser"
+@attribute [Authorize]
+
+@using Newtonsoft.Json.Linq
+@using Microsoft.Extensions.Logging
+
+<ApiResponse Response="@Content" />
+
+@code
+{
+    [Inject]
+    public IHttpClientFactory HttpClientFactory { get; set; }
+    
+    [Inject]
+    public ILogger<CallApiAsUser> Logger { get; set; }
+
+    private string Content { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var client = HttpClientFactory.CreateClient("user_client");
+            var response = await client.GetStringAsync("test");
+            
+            Content = JArray.Parse(response).ToString();;
+        }
+        catch (Exception e)
+        {
+            Content = e.Message;
+            Logger.LogError(e, "Error calling test API");
+        }
+        
+        await base.OnInitializedAsync();
+    }
+}
